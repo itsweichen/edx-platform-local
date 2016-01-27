@@ -414,6 +414,7 @@ class @MarkdownEditingDescriptor extends XModule.Descriptor
                     return string;
                   }
                   if (isNaN(parseFloat(value))) {
+                      if (value[0]!="$") //UCSD
                         return false;
                   }
                   // Tries to extract parameters from string like 'expr +- tolerance'
@@ -509,6 +510,11 @@ class @MarkdownEditingDescriptor extends XModule.Descriptor
           var selectString = '<pre><code>\n' + p1 + '</code></pre>';
           return selectString;
       });
+
+      // UCSD: 'py [code] '/py -> <script type='loncapa/python'> [code] </script>
+      xml = xml.replace(/(\'(py))/g, "<script type='loncapa/python'>");
+      xml = xml.replace(/(\'\/(py))/g, "<\/script>");
+
 
       // split scripts and preformatted sections, and wrap paragraphs
       splits = xml.split(/(\<\/?(?:script|pre).*?\>)/g);
