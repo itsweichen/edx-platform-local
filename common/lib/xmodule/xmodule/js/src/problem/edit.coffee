@@ -511,9 +511,9 @@ class @MarkdownEditingDescriptor extends XModule.Descriptor
           return selectString;
       });
 
-      // UCSD: 'py [code] '/py -> <script type='loncapa/python'> [code] </script>
-      xml = xml.replace(/(\'(py))/g, "<script type='loncapa/python'>");
-      xml = xml.replace(/(\'\/(py))/g, "<\/script>");
+      // UCSD: \`py [code] py\` -> <script type='loncapa/python'> [code] </script>
+      xml = xml.replace(/(\\\`(py))/g, "<script type='loncapa/python'>");
+      xml = xml.replace(/((py)\\\`)/g, "<\/script>");
 
 
       // split scripts and preformatted sections, and wrap paragraphs
